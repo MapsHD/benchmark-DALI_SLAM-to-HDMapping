@@ -113,8 +113,10 @@ COPY ./src/DALI_SLAM             ./src/DALI_SLAM
 COPY ./src/livox_ros_driver      ./src/livox_ros_driver
 COPY ./src/dalislam-to-hdmapping ./src/dalislam-to-hdmapping
 
-# Benchmark launch (selectable config) added into the DA_LIO package.
+# Benchmark launch (selectable config) and extra configs (e.g. livox_pc2 =
+# Livox scans exported as PointCloud2) added into the DA_LIO package.
 COPY ./overlay/launch/ ./src/DALI_SLAM/DA_LIO/launch/
+COPY ./overlay/config/ ./src/DALI_SLAM/DA_LIO/config/
 
 # Build the livox_ros_driver message (CustomMsg) first, then DA-LIO and the
 # converter. Only da_lio is built from the DALI_SLAM repo (the MC_PGO back-end

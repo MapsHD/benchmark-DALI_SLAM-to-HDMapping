@@ -21,7 +21,8 @@ ODOM_TOPIC="${ODOM_TOPIC:-/Odometry}"
 CLOUD_TOPIC="${CLOUD_TOPIC:-/cloud_registered}"
 
 # Sensor selection: which DA-LIO config to load.
-# helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne
+# helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne | livox_pc2
+#   livox_pc2 = Livox scans exported as sensor_msgs/PointCloud2 (e.g. Bunker DVI)
 SENSOR="${SENSOR:-helmet_mid}"
 
 # RViz on by default — the live view of how DA-LIO tracks the dataset.
@@ -39,7 +40,7 @@ usage() {
   echo "If no arguments are provided, a GUI file selector will be used."
   echo
   echo "Environment variables:"
-  echo "  SENSOR        - DA-LIO config profile: helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne (default: helmet_mid)"
+  echo "  SENSOR        - DA-LIO config profile: helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2 (default: helmet_mid)"
   echo "  LIDAR_TOPIC   - LiDAR topic name inside the bag (default: the profile's config topic)"
   echo "  IMU_TOPIC     - IMU topic name inside the bag   (default: the profile's config topic)"
   echo "  ODOM_TOPIC    - DA-LIO odometry output topic    (default: /Odometry)"
@@ -93,8 +94,9 @@ case "$SENSOR" in
   hesai)       CONFIG_FILE="hesai.yaml";       CFG_LIDAR="/hesai/pandar";       CFG_IMU="/alphasense/imu" ;;
   ouster64)    CONFIG_FILE="ouster64.yaml";    CFG_LIDAR="/os_cloud_node/points"; CFG_IMU="/os_cloud_node/imu" ;;
   velodyne)    CONFIG_FILE="velodyne.yaml";    CFG_LIDAR="/velodyne_points";    CFG_IMU="/imu/data" ;;
+  livox_pc2)   CONFIG_FILE="livox_pc2.yaml";   CFG_LIDAR="/livox/pointcloud";  CFG_IMU="/livox/imu" ;;
   *)
-    echo "Error: unknown SENSOR=$SENSOR (use helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne)"
+    echo "Error: unknown SENSOR=$SENSOR (use helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2)"
     exit 1
     ;;
 esac
