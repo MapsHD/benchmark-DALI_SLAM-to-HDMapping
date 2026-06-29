@@ -23,7 +23,9 @@ CLOUD_TOPIC="${CLOUD_TOPIC:-/cloud_registered}"
 # Sensor selection: which DA-LIO config to load.
 # helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne | livox_pc2
 #   livox_pc2 = Livox scans exported as sensor_msgs/PointCloud2 (e.g. Bunker DVI)
-SENSOR="${SENSOR:-helmet_mid}"
+# This branch (Bunker-DVI-Dataset-reg-1) defaults to livox_pc2 for the Bunker
+# DVI reg-1 bag; override with e.g. `SENSOR=helmet_mid ./docker_session_run-...`.
+SENSOR="${SENSOR:-livox_pc2}"
 
 # RViz on by default — the live view of how DA-LIO tracks the dataset.
 USE_RVIZ="${USE_RVIZ:-1}"
@@ -251,7 +253,6 @@ echo "  rostopic echo '"$ODOM_TOPIC"'"
     tmux new-window -t '"$TMUX_SESSION"' -n control '\''
 source /opt/ros/noetic/setup.bash
 source /ros_ws/devel/setup.bash
-echo "[control] DA-LIO running — press Ctrl+b then 0 to watch RViz."
 echo "[control] waiting for bag playback to finish..."
 tmux wait-for BAG_DONE
 echo "[control] bag playback finished — shutting down"
