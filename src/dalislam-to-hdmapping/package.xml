@@ -2,7 +2,7 @@
 <package format="2">
   <name>dalislam_to_hdmapping</name>
   <version>0.0.1</version>
-  <description>Convert recorded DALI-SLAM (DA-LIO) odometry bag to HDMapping session format</description>
+  <description>Convert recorded DALI_SLAM (DA-LIO) odometry bag to HDMapping session format</description>
   <maintainer email="januszbedkowski@gmail.com">Janusz Bedkowski</maintainer>
   <license>MIT</license>
 

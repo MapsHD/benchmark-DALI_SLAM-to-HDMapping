@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run DALI-SLAM (DA-LIO) on a rosbag (ROS 1 .bag or ROS 2 bag directory),
+# Run DALI_SLAM (DA-LIO) on a rosbag (ROS 1 .bag or ROS 2 bag directory),
 # record output topics, then convert the recorded bag to an HDMapping session.
 #
 # DA-LIO is FAST-LIO2-based: it publishes the registered world-frame scan on
@@ -7,13 +7,13 @@
 # converter chunks the world points and rebuilds the trajectory from /Odometry.
 
 IMAGE_NAME='dalislam_noetic'
-TMUX_SESSION='ros1_DALI-SLAM'
+TMUX_SESSION='ros1_DALI_SLAM'
 
 DATASET_CONTAINER_PATH='/ros_ws/dataset/input.bag'
 CONVERTED_BAG_CONTAINER='/tmp/dataset_ros1.bag'
 BAG_OUTPUT_CONTAINER='/ros_ws/recordings'
 
-RECORDED_BAG_NAME="recorded-DALI-SLAM.bag"
+RECORDED_BAG_NAME="recorded-DALI_SLAM.bag"
 HDMAPPING_OUT_NAME="output_hdmapping"
 
 # Recorded topics (used by the converter).
@@ -51,7 +51,7 @@ usage() {
   exit 1
 }
 
-echo "=== DALI-SLAM (DA-LIO) rosbag pipeline ==="
+echo "=== DALI_SLAM (DA-LIO) rosbag pipeline ==="
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
   usage
@@ -302,7 +302,7 @@ docker run -it --rm \
     source /ros_ws/devel/setup.bash
     rosrun dalislam_to_hdmapping listener \
       \"$BAG_OUTPUT_CONTAINER/$RECORDED_BAG_NAME\" \
-      \"$BAG_OUTPUT_CONTAINER/$HDMAPPING_OUT_NAME-DALI-SLAM\" \
+      \"$BAG_OUTPUT_CONTAINER/$HDMAPPING_OUT_NAME-DALI_SLAM\" \
       \"$ODOM_TOPIC\" \
       \"$CLOUD_TOPIC\"
   "

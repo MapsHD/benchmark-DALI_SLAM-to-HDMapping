@@ -1,4 +1,4 @@
-# DALI-SLAM (DA-LIO) to HDMapping simplified instruction
+# DALI_SLAM (DA-LIO) to HDMapping simplified instruction
 
 ## Step 1 (prepare data)
 Download the dataset `reg-1.bag` by clicking [link](https://cloud.cylab.be/public.php/dav/files/7PgyjbM2CBcakN5/reg-1.bag) (it is part of [Bunker DVI Dataset](https://charleshamesse.github.io/bunker-dvi-dataset)) and convert with [tool](https://github.com/MapsHD/livox_bag_aggregate) to `reg-1.bag-pc.bag`.
@@ -26,15 +26,15 @@ cd ~/hdmapping-benchmark/data
 
 While the bag plays you can watch DA-LIO build the map live in RViz:
 
-![DALI-SLAM running in RViz](images/DALI-SLAM-RVIZ.png)
+![DALI_SLAM running in RViz](images/DALI_SLAM-RVIZ.png)
 
 ## Step 4 (Open and visualize data)
-Expected data should appear in `~/hdmapping-benchmark/data/output_hdmapping-DALI-SLAM`.
-Use tool [multi_view_tls_registration_step_2](https://github.com/MapsHD/HDMapping) to open `session.json` from `~/hdmapping-benchmark/data/output_hdmapping-DALI-SLAM`.
+Expected data should appear in `~/hdmapping-benchmark/data/output_hdmapping-DALI_SLAM`.
+Use tool [multi_view_tls_registration_step_2](https://github.com/MapsHD/HDMapping) to open `session.json` from `~/hdmapping-benchmark/data/output_hdmapping-DALI_SLAM`.
 
-![DALI-SLAM session opened in HDMapping multi_view_tls_registration_step_2](images/DALI_SLAM_step2.png)
+![DALI_SLAM session opened in HDMapping multi_view_tls_registration_step_2](images/DALI_SLAM_step2.png)
 
-You should see the following data in folder `~/hdmapping-benchmark/data/output_hdmapping-DALI-SLAM`:
+You should see the following data in folder `~/hdmapping-benchmark/data/output_hdmapping-DALI_SLAM`:
 
 lio_initial_poses.reg
 

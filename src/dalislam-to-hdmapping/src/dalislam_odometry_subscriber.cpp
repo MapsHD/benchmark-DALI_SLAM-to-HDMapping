@@ -1,4 +1,4 @@
-// Reads a ROS 1 bag recorded from DALI-SLAM (DA-LIO) containing:
+// Reads a ROS 1 bag recorded from DALI_SLAM (DA-LIO) containing:
 //   /Odometry          (nav_msgs/Odometry)
 //   /cloud_registered  (sensor_msgs/PointCloud2 in world/map frame)
 // and writes an HDMapping session (chunked LAZ + trajectory CSVs + session.json).
