@@ -22,7 +22,7 @@ CLOUD_TOPIC="${CLOUD_TOPIC:-/cloud_registered}"
 
 # Sensor selection: which DA-LIO config to load.
 # helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne
-SENSOR="${SENSOR:-helmet_mid}"
+SENSOR="${SENSOR:-velodyne}"
 
 # RViz on by default — the live view of how DA-LIO tracks the dataset.
 USE_RVIZ="${USE_RVIZ:-1}"
