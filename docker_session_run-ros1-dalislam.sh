@@ -21,11 +21,13 @@ ODOM_TOPIC="${ODOM_TOPIC:-/Odometry}"
 CLOUD_TOPIC="${CLOUD_TOPIC:-/cloud_registered}"
 
 # Sensor selection: which DA-LIO config to load.
-# helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne | livox_pc2
+# helmet_mid | helmet_avia | avia | horizon | hesai | ouster64 | velodyne | livox_pc2 | canonical
 #   livox_pc2 = Livox scans exported as sensor_msgs/PointCloud2 (e.g. Bunker DVI)
-# This branch (Bunker-DVI-Dataset-reg-1) defaults to livox_pc2 for the Bunker
-# DVI reg-1 bag; override with e.g. `SENSOR=helmet_mid ./docker_session_run-...`.
-SENSOR="${SENSOR:-livox_pc2}"
+#   canonical = the benchmark's canonical spinning-lidar bag (velodyne.yaml with
+#               the canonical sensor description; see the orchestration README)
+# This branch (hdmapping-benchmark-canonical) defaults to canonical; override with
+# e.g. `SENSOR=helmet_mid ./docker_session_run-...`.
+SENSOR="${SENSOR:-canonical}"
 
 # RViz on by default — the live view of how DA-LIO tracks the dataset.
 USE_RVIZ="${USE_RVIZ:-1}"
@@ -42,7 +44,7 @@ usage() {
   echo "If no arguments are provided, a GUI file selector will be used."
   echo
   echo "Environment variables:"
-  echo "  SENSOR        - DA-LIO config profile: helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2 (default: helmet_mid)"
+  echo "  SENSOR        - DA-LIO config profile: helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2|canonical (default: canonical)"
   echo "  LIDAR_TOPIC   - LiDAR topic name inside the bag (default: the profile's config topic)"
   echo "  IMU_TOPIC     - IMU topic name inside the bag   (default: the profile's config topic)"
   echo "  ODOM_TOPIC    - DA-LIO odometry output topic    (default: /Odometry)"
@@ -97,8 +99,9 @@ case "$SENSOR" in
   ouster64)    CONFIG_FILE="ouster64.yaml";    CFG_LIDAR="/os_cloud_node/points"; CFG_IMU="/os_cloud_node/imu" ;;
   velodyne)    CONFIG_FILE="velodyne.yaml";    CFG_LIDAR="/velodyne_points";    CFG_IMU="/imu/data" ;;
   livox_pc2)   CONFIG_FILE="livox_pc2.yaml";   CFG_LIDAR="/livox/pointcloud";  CFG_IMU="/livox/imu" ;;
+  canonical)   CONFIG_FILE="canonical.yaml";   CFG_LIDAR="/lidar/pointcloud";  CFG_IMU="/lidar/imu" ;;
   *)
-    echo "Error: unknown SENSOR=$SENSOR (use helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2)"
+    echo "Error: unknown SENSOR=$SENSOR (use helmet_mid|helmet_avia|avia|horizon|hesai|ouster64|velodyne|livox_pc2|canonical)"
     exit 1
     ;;
 esac
@@ -131,6 +134,7 @@ docker run -it --rm \
   --network host \
   -e DISPLAY=$DISPLAY \
   -e ROS_HOME=/tmp/.ros \
+  -e DISABLE_ROS1_EOL_WARNINGS=1 \
   -e SENSOR="$SENSOR" \
   -e USE_RVIZ="$USE_RVIZ" \
   -e LIBGL_ALWAYS_SOFTWARE="$LIBGL_ENV" \
@@ -292,6 +296,7 @@ docker run -it --rm \
   --network host \
   -e DISPLAY="$DISPLAY" \
   -e ROS_HOME=/tmp/.ros \
+  -e DISABLE_ROS1_EOL_WARNINGS=1 \
   -u 1000:1000 \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v "$BAG_OUTPUT_HOST":"$BAG_OUTPUT_CONTAINER" \
